@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<title>HUSley demo</title>
+<style>
+
+html {
+  font-family: sans-serif;
+  color: #333;
+  background: #eee;
+}
+
+canvas {
+  display: block;
+  padding: 1px;
+  border: 1px solid #ccc;
+}
+
+</style>
+<script src="husley.js"></script>
+</head>
+<body>
+
+  <h1>HUSLey demo</h1>
+  <p>HUSLey is the most basic library offering a human-friendly HSL-like color representation preserving the lightness.</p>
+
+  <input id="lightness" type="range" value="50" min="0" max="100" step="1"></input>
+  <canvas id="output" width="360" height="100"></canvas>
+
+<script>
+
+window.addEventListener('load', function() {
+  var lightness = document.getElementById('lightness');
+  var ctx = document.getElementById('output').getContext('2d');
+  var imageData = ctx.getImageData(0, 0, 360, 100);
+
+  function update(e) {
+    var l = Number(lightness.value) / 100;
+    var data = imageData.data;
+    var index = 0;
+    for (var s = 100; s--; ) {
+      for (var h = 0; h < 360; h++) {
+        var rgb = HUSLey(h, s / 100, l);
+        data[index++] = rgb[0];
+        data[index++] = rgb[1];
+        data[index++] = rgb[2];
+        data[index++] = 255;
+      }
+    }
+    ctx.putImageData(imageData, 0, 0);
+  };
+
+  lightness.addEventListener('change', update);
+  update();
+});
+
+</script>
+</body>
+</html>
