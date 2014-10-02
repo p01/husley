@@ -38,9 +38,11 @@ window.addEventListener('load', function() {
     var l = Number(lightness.value) / 100;
     var data = imageData.data;
     var index = 0;
-    for (var s = 100; s--; ) {
-      for (var h = 0; h < 360; h++) {
-        var rgb = HUSLey(h, s / 100, l);
+    for (var y = 100; y--; ) {
+      var s = y / 100;
+      for (var x = 0; x < 360; x++) {
+        var h = x * Math.PI / 180;
+        var rgb = HUSLey(h, s, l);
         data[index++] = rgb[0];
         data[index++] = rgb[1];
         data[index++] = rgb[2];

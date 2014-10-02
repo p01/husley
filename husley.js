@@ -1,6 +1,5 @@
 (function() {
   this.HUSLey = function(h, s, l) {
-    h *= Math.PI / 180;
     s *= (l < .5 ? l : 1 - l) * 255;
     // Compute the base RGB values
     var r = s * Math.cos(h);
